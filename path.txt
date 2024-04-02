@@ -1,0 +1,12 @@
+Condition Steps:
+If 0 -> pass
+If 1 -> go recursive function
+	convert this 1 to 2
+	look up-down-left-right one by one recursively
+	if any one of these are 1, do the same thing for them
+	increase count for every 1 to 2 conversion
+	at the end of the function, if count is bigger than largest island variable, set it to count
+	set count 0
+If 2 -> pass
+
+	
