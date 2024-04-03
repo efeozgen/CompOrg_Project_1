@@ -4,7 +4,7 @@ array:  .space 80
 prompt: .asciiz "Enter an integer (0 to quit) : "
 text:   .asciiz "The list of integers is: "
 separator: .asciiz " "
-zero:   .word 0   # Kontrol elemanÄ±
+zero:   .word 0   # Kontrol elemanı
 
 .text
 .globl main
@@ -25,7 +25,7 @@ main:
     jal print_numbers
 
     CA:
-    # Programdan Ã§Ä±k
+    # Programdan çık
     li $v0, 10
     syscall
 
@@ -51,7 +51,7 @@ travel_numbers_for_loop:
     li $t9, 0      # t9 = represenet second loop j value
 
     loop:
-        # t1 - t2 aralarÄ±nda asal mÄ± deÄŸil mi kontrol et
+        # t1 - t2 aralarında asal mı değil mi kontrol et
 
         beq $zero, $zero check_if_coprime   
         AA:  
@@ -83,7 +83,7 @@ travel_numbers_for_loop:
             addi $t9, $t9, 1 #inrement t9 / j by 1
             addi $t6, $t6, 1 #increment i by 1
             
-            blt $t6, $s3, second_loop #arrayin uzunluÄŸunun 1 eksiÄŸine eÅŸit deÄŸilse second_loopa geri dÃ¶ndÃ¼r
+            blt $t6, $s3, second_loop #arrayin uzunluğunun 1 eksiğine eşit değilse second_loopa geri döndür
 
         sub $s3, $s3, 1 # decrement array length by 1
         
@@ -106,8 +106,8 @@ travel_numbers_for_loop:
     jr $ra
 
 
-        # eÄŸer aralarÄ±nda asal ise t1 ve t2 yi 1er arttÄ±r
-        # eÄŸer deÄŸillerse en kÃ¼Ã§Ã¼k ortak katlarÄ±nÄ± bul
+        # eğer aralarında asal ise t1 ve t2 yi 1er arttır
+        # eğer değillerse en küçük ortak katlarını bul
 
 
 AC:
@@ -179,7 +179,7 @@ check_if_coprime:
     # beq $zero, $zero, find_LCM
 
 equal:
-    # t1 deÄŸerini esas alacak
+    # t1 değerini esas alacak
     add $t7, $t1, $zero
     beq $zero, $zero, AA
 
@@ -199,7 +199,7 @@ make_LCM_zero:
     add $t3, $zero, $zero
     beq $zero, $zero, AB
 
-# KullanÄ±cÄ±dan sayÄ±larÄ± oku ve diziye ekle
+# Kullanıcıdan sayıları oku ve diziye ekle
 read_numbers:
     li $v0, 4
     la $a0, prompt
@@ -216,7 +216,7 @@ read_numbers:
     # 0 girilene kadar devam et
     bnez $v0, read_numbers
 
-    # Diziyi sÄ±rala ve yazdÄ±r
+    # Diziyi sırala ve yazdır
     la $a1, array
     li $v0, 4
     la $a0, text
@@ -227,20 +227,20 @@ read_numbers:
 print_numbers:
     lw $t0, 0($a1)
 
-    # Kontrol elemanÄ± olan -1'e kadar yazdÄ±rmayÄ± bitir
+    # Kontrol elemanı olan -1'e kadar yazdırmayı bitir
     beq $t0, $zero, CA
 
-    # SayÄ±yÄ± yazdÄ±r
+    # Sayıyı yazdır
     li $v0, 1
     move $a0, $t0
     syscall
 
-    # BoÅŸluk yazdÄ±r
+    # Boşluk yazdır
     li $v0, 4
     la $a0, separator
     syscall
 
     addiu $a1, $a1, 4
 
-    # Bir sonraki sayÄ±yÄ± yazdÄ±rmak iÃ§in dÃ¶ngÃ¼yÃ¼ tekrarla
+    # Bir sonraki sayıyı yazdırmak için döngüyü tekrarla
     j print_numbers
