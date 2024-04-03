@@ -48,7 +48,7 @@ loop:
     syscall
         
     srl $s7, $s7, 1
-    addi $s6, $s6, 1
+    sll $s6, $s6, 1
     bne $s1, $zero, loop
     
     # Print the modified string
@@ -103,7 +103,7 @@ swap_loop:
 swap_end:
 	subi $t5, $t5, 1
 	beq $t5, $zero, finish
-	la $t0, str
+	sub $t0, $t0, $t4
 	add $t0, $t0, $s7
 	li $t1, 0
 	j swap_loop
