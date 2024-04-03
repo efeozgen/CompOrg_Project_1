@@ -157,10 +157,10 @@ equal2:
 check_if_coprime:
     beq $t1, $t2, equal
     
-    beq $a1, $zero, AA
+    # beq $a1, $zero, AA
     add $t4, $t1, $zero
     add $t6, $t2, $zero
-    li $t5, 0
+    add $t5, $zero, $zero
     while_loop:
 
         # li $t5, 0($t4)
