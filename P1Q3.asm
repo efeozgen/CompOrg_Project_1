@@ -11,46 +11,34 @@ main:
     la $a0, msg
     syscall
 
-    # Read a string from the user
-    li $v0, 8
-    la $a0, str  # Load address of input buffer
-    li $a1, 255  # Maximum number of characters to read
+    li $v0, 8     # Read a string from the user
+    la $a0, str 
+    li $a1, 255  # Maximum number of characters
     syscall
     move $s0, $v0  # Store the address of the string in $s0
 
-    # Print prompt for entering the number of shuffles
     li $v0, 4
     la $a0, msg2
-    syscall
+    syscall    # Print prompt for entering the number of shuffles
 
-    # Read the number of shuffles from the user
     li $v0, 5
-    syscall
+    syscall    # Read the number of shuffles from the user
     move $s1, $v0
     
-        # Compute the length of the string
+
     move $a0, $s0  # Pass the address of the string
-    jal length
+    jal length         # Compute the length of the string
     move $s7, $v0
-    li $s6, 1
+    li $s6, 1    # Base address swaping for each phase initialized
 
 
 loop:
-    li $v0, 1
-    la $a0, ($s7)
-    syscall
     # Perform the character swap
     move $a0, $s0  # Pass the address of the string
     jal swap_chars
-    
-    li $v0, 4
-    la $a0, str
-    syscall
-        
     srl $s7, $s7, 1
     sll $s6, $s6, 1
-    bne $s1, $zero, loop
-    
+    bne $s1, $zero, loop 
     # Print the modified string
     li $v0, 4
     la $a0, str
@@ -101,11 +89,11 @@ swap_loop:
     	j swap_loop
     	
 swap_end:
-	subi $t5, $t5, 1
-	beq $t5, $zero, finish
-	sub $t0, $t0, $t4
-	add $t0, $t0, $s7
-	li $t1, 0
+	subi $t5, $t5, 1     # Decrease the number of base address swaping
+	beq $t5, $zero, finish   # Is swaping end?
+	sub $t0, $t0, $t4    # Go back to the previous base address (not the first)
+	add $t0, $t0, $s7   # Swap the base address
+	li $t1, 0  # make index counter zero for each loop
 	j swap_loop
 	
 finish:
