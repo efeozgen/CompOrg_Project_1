@@ -95,7 +95,12 @@ travel_numbers_for_loop:
             add $t0, $a1, $t9
             addi $s4, $t0, 1
 
-            sb $t0, 0($s4) # changing jth elemnt of index to $t2 + 1 / (i+1)
+            # sb $t0, 0($s4) # changing jth elemnt of index to $t2 + 1 / (i+1)
+
+            lw $k1, 0($t4)   # Load the value from address $t4 into $t1
+            lw $t4, 0($t0)   # Load the address from $t0 into $t2
+            sw $k1, 0($t4)   # Store the value from $t1 into the address stored in $t2
+            add $t4, $t1, $zero
 
             addi $t9, $t9, 1 #inrement t9 / j by 1
             addi $t6, $t6, 1 #increment i by 1
